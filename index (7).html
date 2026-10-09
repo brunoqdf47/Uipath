@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>From activity to controlled delivery — an automation portfolio case</title>
+
+<!-- Link preview (LinkedIn, WhatsApp, etc.) — update the folder name if you host it elsewhere -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="From activity to controlled delivery — running an automation &amp; AI portfolio"/>
+<meta property="og:description" content="How I run a two-dozen-initiative automation and AI portfolio as an evidence-based system — stage gates, traceability, an executive dashboard and a decision-driven review cycle with leadership. Anonymised."/>
+<meta property="og:image" content="https://brunoqdf47.github.io/governance/cover.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:url" content="https://brunoqdf47.github.io/governance/"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="From activity to controlled delivery"/>
+<meta name="twitter:description" content="Portfolio governance for automation &amp; AI: stage gates, traceability, executive reporting and decisions."/>
+<meta name="twitter:image" content="https://brunoqdf47.github.io/governance/cover.png"/>
+<meta name="description" content="A portfolio-governance case: running an automation and AI portfolio with a seven-gate maturity model, GitHub traceability, an executive control dashboard and a decision-driven management review cycle."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#09111F;--ink-2:#0E1A2C;--panel:#132236;--panel-2:#1A2C49;
+  --line:#1E3554;--line-soft:rgba(100,150,210,.12);
+  --text:#EAF1FB;--muted:#AEBDD6;--faint:#6C81A2;
+  --cyan:#2FD0BF;--cyan-dim:rgba(47,208,191,.10);--cyan-glow:rgba(47,208,191,.20);
+  --amber:#F5A623;--amber-dim:rgba(245,166,35,.12);
+  --green:#5BD68A;--green-dim:rgba(91,214,138,.12);
+  --display:'Space Grotesk',sans-serif;--body:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--ink);color:var(--text);font-family:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;width:100%}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:54px 54px;mask-image:radial-gradient(ellipse 130% 70% at 50% 0%,#000 15%,transparent 78%);opacity:.4}
+.wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 clamp(20px,5vw,28px)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.08;letter-spacing:-.02em}
+.mono{font-family:var(--mono);letter-spacing:.04em}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--cyan)}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:40;backdrop-filter:blur(12px);background:rgba(9,17,31,.72);border-bottom:1px solid var(--line-soft)}
+.topbar .row{max-width:1000px;margin:0 auto;padding:13px clamp(20px,5vw,28px);display:flex;justify-content:space-between;align-items:center;gap:14px}
+.topbar .tag{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.13em;text-transform:uppercase;text-align:right}
+.topbar a.back{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em;transition:color .2s;white-space:nowrap}
+.topbar a.back:hover{color:var(--cyan)}
+
+/* HERO */
+.hero{padding:70px 0 56px}
+.hero.wrap{padding:70px clamp(20px,5vw,28px) 56px}
+.disc{display:inline-flex;align-items:flex-start;gap:8px;font-family:var(--mono);font-size:.69rem;line-height:1.55;color:var(--muted);background:var(--amber-dim);border:1px solid rgba(245,166,35,.25);border-radius:7px;padding:9px 13px;margin-top:26px;max-width:70ch}
+.disc::before{content:"ℹ";color:var(--amber);flex:none}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem);margin:18px 0 18px;font-weight:700}
+.hero h1 .hl{color:var(--cyan)}
+.hero h1 .dim{color:var(--faint)}
+.lede{font-size:clamp(1.02rem,2vw,1.22rem);color:var(--muted);max-width:64ch}
+.hero-viz{margin-top:34px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(160deg,var(--panel),var(--ink-2));padding:12px 14px 8px;position:relative}
+.hero-viz svg{width:100%;height:auto;display:block}
+.viz-labels{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:6px 4px 4px;flex-wrap:wrap}
+.viz-labels .a{color:var(--muted)}.viz-labels .b{color:var(--cyan)}
+.viz-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-family:var(--mono);font-size:.6rem;color:var(--muted);padding:4px 4px 6px;letter-spacing:.04em}
+.viz-legend span{display:inline-flex;align-items:center;gap:6px}
+.viz-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.replay{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);background:var(--ink);border:1px solid rgba(47,208,191,.4);border-radius:20px;padding:5px 11px;cursor:pointer;transition:background .2s}
+.replay:hover{background:var(--cyan-dim)}
+
+/* STAT STRIP */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+@media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border:1px solid var(--line);border-radius:11px;background:var(--ink-2);padding:18px 16px}
+.stat .n{font-family:var(--display);font-weight:600;font-size:1.7rem;color:var(--cyan);letter-spacing:-.02em;line-height:1}
+.stat .n small{font-size:.9rem;color:var(--muted);font-weight:500}
+.stat .l{font-family:var(--mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:9px;line-height:1.45}
+
+/* SECTION */
+section{padding:58px 0;border-top:1px solid var(--line-soft)}
+section.wrap{padding-top:60px;padding-bottom:60px}
+.stitle{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+.stitle .idx{font-family:var(--mono);font-size:.76rem;color:var(--cyan);letter-spacing:.1em}
+h2{font-size:clamp(1.45rem,2.8vw,2rem)}
+.sub{color:var(--muted);max-width:68ch;margin-top:13px;font-size:1.03rem;line-height:1.7}
+.lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin:26px 0 10px;display:flex;align-items:center;gap:9px}
+.lbl .badge{font-size:.54rem;color:var(--faint);border:1px solid var(--line);border-radius:4px;padding:2px 7px;letter-spacing:.07em;text-transform:none}
+
+/* THESIS */
+.thesis{border:1px solid var(--line);border-radius:13px;background:linear-gradient(160deg,var(--panel-2),var(--ink-2));padding:30px 28px;margin-top:22px;position:relative;overflow:hidden}
+.thesis::after{content:"";position:absolute;top:0;right:0;width:140px;height:140px;background:radial-gradient(circle at 70% 30%,var(--cyan-glow),transparent 70%);pointer-events:none}
+.thesis .big{font-family:var(--display);font-weight:600;font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:1.3;letter-spacing:-.01em}
+.thesis .big em{font-style:normal;color:var(--cyan)}
+.thesis p{color:var(--muted);margin-top:14px;font-size:1rem;max-width:66ch}
+
+/* CARDS */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+@media(max-width:820px){.grid3{grid-template-columns:1fr}}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.pcard{border:1px solid var(--line);border-radius:11px;background:var(--ink-2);padding:18px 18px;display:flex;flex-direction:column}
+.pcard .pk{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;display:block}
+.pcard .pk.c{color:var(--cyan)}
+.pcard h4{font-size:1rem;margin-bottom:7px;letter-spacing:-.01em}
+.pcard p{color:var(--muted);font-size:.91rem;line-height:1.55}
+.pcard .foot{font-family:var(--mono);font-size:.62rem;color:var(--faint);border-top:1px dashed var(--line);padding-top:10px;margin-top:auto;letter-spacing:.03em}
+.pcard .foot b{color:var(--cyan);font-weight:500}
+.pcard .foot.top{margin-top:12px}
+
+.edge{margin-top:18px;border-left:2px solid var(--amber);background:var(--amber-dim);border-radius:0 8px 8px 0;padding:12px 15px;font-size:.92rem;color:var(--text);line-height:1.55}
+.edge b{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.chip{font-family:var(--mono);font-size:.68rem;padding:6px 11px;border:1px solid var(--line);border-radius:18px;color:var(--muted)}
+.chip b{color:var(--cyan);font-weight:500}
+
+/* CONTROL MODEL */
+.model{display:grid;grid-template-columns:1fr 28px 1.05fr 28px 1fr;align-items:stretch;margin-top:26px}
+.model .arrow{display:flex;align-items:center;justify-content:center;color:var(--cyan);font-family:var(--mono);font-size:1.1rem;opacity:.8}
+.mcol{display:flex;flex-direction:column;gap:12px}
+.layer{border:1px solid var(--line);border-radius:12px;background:var(--ink-2);padding:16px 16px 14px;flex:1;position:relative;overflow:hidden}
+.layer.hero-l{border-color:rgba(47,208,191,.55);background:linear-gradient(160deg,var(--panel-2),var(--ink-2))}
+.layer .ln{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:6px}
+.layer h4{font-size:.98rem;margin-bottom:6px}
+.layer p{color:var(--muted);font-size:.85rem;line-height:1.5}
+.layer ul{list-style:none;margin-top:9px;display:flex;flex-direction:column;gap:4px}
+.layer li{font-family:var(--mono);font-size:.64rem;color:var(--muted);display:flex;gap:7px;letter-spacing:.02em}
+.layer li::before{content:"·";color:var(--cyan)}
+.loopbar{margin-top:12px;border:1px dashed rgba(47,208,191,.4);border-radius:10px;padding:11px 14px;font-family:var(--mono);font-size:.68rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start;line-height:1.55}
+.loopbar .ic{color:var(--cyan);font-size:1rem;line-height:1.2}
+@media(max-width:820px){
+  .model{grid-template-columns:1fr}
+  .model .arrow{height:26px;transform:rotate(90deg)}
+}
+
+/* mini flow */
+.mini-flow{display:flex;flex-wrap:wrap;margin-top:6px;max-width:100%}
+.mini-step{flex:1 1 110px;min-width:96px;border:1px solid var(--line);border-radius:8px;padding:10px 10px;background:var(--ink);margin-right:16px;margin-bottom:10px;position:relative}
+.mini-step:last-child{margin-right:0}
+.mini-step::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--faint);font-family:var(--mono);font-size:.8rem}
+.mini-step:last-child::after{content:""}
+.mini-step .mn{font-family:var(--mono);font-size:.56rem;color:var(--amber);display:block;letter-spacing:.08em}
+.mini-step .mt{font-family:var(--display);font-size:.82rem;font-weight:500;margin-top:3px;display:block;line-height:1.25}
+.mini-step .ms{font-family:var(--mono);font-size:.58rem;color:var(--faint);display:block;margin-top:4px;line-height:1.4}
+.mini-step.on{border-color:rgba(245,166,35,.5);background:var(--amber-dim)}
+
+/* GATE CALCULATOR */
+.calc{border:1px solid var(--line);border-radius:13px;background:linear-gradient(170deg,var(--panel),var(--ink-2));padding:22px 20px 18px;margin-top:22px}
+.gates{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+@media(max-width:700px){.gates{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}}
+.gate{border:1px solid var(--line);border-radius:9px;background:var(--ink);padding:10px 8px 9px;cursor:pointer;text-align:left;color:var(--text);font-family:var(--body);transition:border-color .2s,background .2s,transform .15s;position:relative;overflow:hidden}
+.gate:hover{transform:translateY(-1px);border-color:rgba(47,208,191,.5)}
+.gate .gn{font-family:var(--mono);font-size:.56rem;color:var(--faint);letter-spacing:.08em;display:block}
+.gate .gt{font-family:var(--display);font-size:.8rem;font-weight:600;display:block;margin-top:2px;line-height:1.2}
+.gate .gv{font-family:var(--mono);font-size:.62rem;display:block;margin-top:7px;color:var(--faint)}
+.gate .fill{position:absolute;left:0;bottom:0;height:3px;background:var(--cyan);width:0;transition:width .35s ease}
+.gate[data-v="1"]{border-color:rgba(47,208,191,.6);background:var(--cyan-dim)}
+.gate[data-v="1"] .gv{color:var(--cyan)}
+.gate[data-v="0.5"]{border-color:rgba(245,166,35,.45)}
+.gate[data-v="0.5"] .gv{color:var(--amber)}
+.calc-out{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin-top:20px}
+@media(max-width:600px){.calc-out{grid-template-columns:1fr;gap:12px}}
+.score{font-family:var(--display);font-weight:700;font-size:3.2rem;line-height:1;color:var(--cyan);letter-spacing:-.03em;min-width:4.2ch}
+.score small{font-size:1.3rem;color:var(--muted);font-weight:500}
+.score-l{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+.calc-msg{color:var(--muted);font-size:.93rem;line-height:1.55;border-left:2px solid var(--line);padding-left:16px}
+.calc-msg b{color:var(--text);font-weight:600}
+.calc-msg .nx{display:block;font-family:var(--mono);font-size:.66rem;color:var(--cyan);margin-top:8px;letter-spacing:.03em}
+.presets{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;align-items:center}
+.presets .pl{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-right:4px}
+.pbtn{font-family:var(--mono);font-size:.64rem;padding:6px 11px;border:1px solid var(--line);border-radius:18px;color:var(--muted);background:var(--ink);cursor:pointer;transition:all .2s}
+.pbtn:hover,.pbtn.on{color:var(--cyan);border-color:rgba(47,208,191,.55);background:var(--cyan-dim)}
+.scale-key{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.6rem;color:var(--faint);margin-top:14px}
+.scale-key b{font-weight:500}
+
+/* BASIS TOGGLE */
+.basis{border:1px solid var(--line);border-radius:13px;background:var(--ink-2);padding:20px;margin-top:16px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:22px;padding:3px;gap:3px;background:var(--ink);flex-wrap:wrap}
+.seg button{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:var(--muted);background:none;border:none;border-radius:18px;padding:7px 13px;cursor:pointer;transition:all .2s}
+.seg button.on{background:var(--cyan);color:var(--ink)}
+.basis-body{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;margin-top:18px;align-items:center}
+@media(max-width:700px){.basis-body{grid-template-columns:1fr}}
+.bnum{font-family:var(--display);font-weight:700;font-size:2.4rem;letter-spacing:-.03em;line-height:1}
+.bnum .from{color:var(--faint);font-weight:500;font-size:1.6rem}
+.bnum .to{color:var(--cyan)}
+.bnum .d{font-family:var(--mono);font-size:.8rem;color:var(--green);font-weight:500;letter-spacing:.02em;margin-left:6px}
+.bcap{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.basis-body p{color:var(--muted);font-size:.93rem;line-height:1.6}
+
+/* DASHBOARD */
+.dash{border:1px solid var(--line);border-radius:14px;background:linear-gradient(175deg,#0F1D31,var(--ink));padding:18px;margin-top:22px}
+.dash-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:2px 2px 14px;border-bottom:1px solid var(--line-soft)}
+.dash-head .t{font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.01em}
+.dash-head .s{font-family:var(--mono);font-size:.6rem;color:var(--faint);letter-spacing:.08em;margin-top:3px}
+.dash-head .asof{font-family:var(--mono);font-size:.6rem;color:var(--ink);background:var(--amber);border-radius:5px;padding:4px 8px;letter-spacing:.06em;white-space:nowrap}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis .kpi:last-child{grid-column:1/-1}}
+.kpi{border:1px solid var(--line);border-radius:10px;background:var(--ink-2);padding:13px 13px 11px}
+.kpi .kl{font-family:var(--mono);font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+.kpi .kv{font-family:var(--display);font-weight:600;font-size:1.65rem;line-height:1.1;margin-top:5px;letter-spacing:-.02em}
+.kpi .ks{font-family:var(--mono);font-size:.58rem;color:var(--muted);margin-top:3px;line-height:1.35}
+.kpi.acc .kv{color:var(--cyan)}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:760px){.dgrid{grid-template-columns:1fr}}
+.dpanel{border:1px solid var(--line);border-radius:10px;background:var(--ink-2);padding:14px 14px 12px}
+.dpanel .ph{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;justify-content:space-between;gap:8px}
+.dpanel .ph span:last-child{color:var(--faint);letter-spacing:.06em;text-transform:none}
+.brow{display:grid;grid-template-columns:118px 1fr 44px;gap:10px;align-items:center;margin-bottom:7px;cursor:default}
+.brow .bn{font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow .bt{display:block;align-self:center;height:12px;background:rgba(100,150,210,.07);border-radius:0 4px 4px 0;position:relative}
+.brow .bf{display:block;height:100%;background:var(--cyan);border-radius:0 4px 4px 0;width:0;transition:width 1s cubic-bezier(.3,.7,.2,1)}
+.brow .bf.soft{background:rgba(47,208,191,.55)}
+.brow .bv{font-family:var(--mono);font-size:.68rem;color:var(--text);text-align:right}
+.brow .drop{position:absolute;left:calc(100% + 6px);top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.58rem;color:var(--amber);white-space:nowrap}
+.brow:hover .bf{filter:brightness(1.18)}
+.stack{display:flex;gap:2px;height:22px;margin-top:4px}
+.stack div{border-radius:2px;height:100%;cursor:default;transition:filter .2s}
+.stack div:first-child{border-radius:4px 2px 2px 4px}
+.stack div:last-child{border-radius:2px 4px 4px 2px}
+.stack div:hover{filter:brightness(1.25)}
+.skey{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--muted)}
+.skey span{display:inline-flex;align-items:center;gap:6px}
+.skey i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.alerts{display:flex;flex-direction:column;gap:7px}
+.al{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:.8rem;color:var(--muted);line-height:1.45}
+.al .tg{font-family:var(--mono);font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:3px 6px;white-space:nowrap;margin-top:1px}
+.tg.hold{color:var(--muted);border:1px solid var(--line)}
+.tg.warn{color:var(--amber);border:1px solid rgba(245,166,35,.4)}
+.tg.ok{color:var(--green);border:1px solid rgba(91,214,138,.4)}
+.dash-foot{font-family:var(--mono);font-size:.6rem;color:var(--faint);margin-top:12px;line-height:1.55}
+
+/* MOVEMENT */
+.move{border:1px solid var(--line);border-radius:13px;background:var(--ink-2);padding:18px 18px 12px;margin-top:22px}
+.mv-axis,.mv-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr 74px;gap:14px;align-items:center}
+.mv-axis{font-family:var(--mono);font-size:.56rem;color:var(--faint);letter-spacing:.06em;padding-bottom:8px;border-bottom:1px solid var(--line-soft);margin-bottom:6px}
+.mv-axis .ticks{display:flex;justify-content:space-between}
+.mv-row{padding:7px 0;border-bottom:1px solid var(--line-soft);cursor:default}
+.mv-row:last-child{border-bottom:none}
+.mv-row:hover{background:rgba(47,208,191,.035)}
+.mv-name{font-size:.86rem;color:var(--text);line-height:1.3}
+.mv-name small{display:block;font-family:var(--mono);font-size:.58rem;color:var(--faint);margin-top:2px;letter-spacing:.02em}
+.mv-track{position:relative;height:20px}
+.mv-track::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.mv-track .gl{position:absolute;top:3px;bottom:3px;width:1px;background:var(--line-soft)}
+.mv-line{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--cyan);opacity:.55;border-radius:2px}
+.mv-dot{position:absolute;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%}
+.mv-dot.from{border:2px solid var(--faint);background:var(--ink-2)}
+.mv-dot.to{background:var(--cyan);box-shadow:0 0 0 2px var(--ink-2)}
+.mv-dot.to.new{background:var(--amber)}
+.mv-dot.to.pause{background:var(--ink-2);border:2px solid var(--muted)}
+.mv-d{font-family:var(--mono);font-size:.74rem;text-align:right;color:var(--green)}
+.mv-d.neg{color:var(--amber)}
+.mv-d.nw{color:var(--amber)}
+.mv-sep{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);padding:14px 0 6px}
+@media(max-width:620px){
+  .mv-axis{grid-template-columns:1fr 54px}.mv-axis>span:first-child{display:none}
+  .mv-row{grid-template-columns:1fr 54px;row-gap:4px}
+  .mv-name{grid-column:1/-1}
+}
+.mv-key{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:12px}
+.mv-key span{display:inline-flex;align-items:center;gap:6px}
+.mv-key i{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* ACCORDION */
+.stages{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.stage{border:1px solid var(--line);border-radius:12px;background:var(--ink-2);overflow:hidden;transition:border-color .3s,transform .3s}
+.stage:not(.open):hover{border-color:rgba(47,208,191,.55);transform:translateY(-1px)}
+.stage.open{border-color:var(--cyan)}
+.stage-toggle{width:100%;display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:none;border:none;color:var(--text);cursor:pointer;text-align:left;font-family:var(--body)}
+.stage-num{font-family:var(--mono);font-size:.72rem;font-weight:500;color:var(--ink);background:var(--cyan);padding:5px 9px;border-radius:6px;flex:none;letter-spacing:.06em;margin-top:2px}
+.stage-main{flex:1;min-width:0}
+.stage-name{font-family:var(--display);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;display:block}
+.stage-summary{color:var(--muted);font-size:.9rem;margin-top:3px;display:block}
+.stage-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.mtag{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:4px 8px;white-space:nowrap}
+.mtag.t{color:var(--amber);border-color:rgba(245,166,35,.3)}
+.mtag.c{color:var(--cyan);border-color:rgba(47,208,191,.35)}
+.expand{flex:none;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(47,208,191,.4);background:var(--cyan-dim);border-radius:20px;padding:7px 12px;margin-top:2px;transition:background .25s,border-color .25s,color .25s}
+.expand .ic{font-size:1rem;line-height:1;transition:transform .35s}
+.stage-toggle:hover .expand{background:var(--cyan-glow);border-color:var(--cyan)}
+.stage.open .expand{color:var(--muted);background:transparent;border-color:var(--line-soft)}
+.stage.open .expand .ic{transform:rotate(45deg);color:var(--muted)}
+@keyframes hintpulse{0%,100%{box-shadow:0 0 0 0 rgba(47,208,191,.35)}55%{box-shadow:0 0 0 6px rgba(47,208,191,0)}}
+.stage:not(.open) .expand{animation:hintpulse 2.6s ease-in-out infinite}
+@media(max-width:560px){.expand .tx{display:none}.expand{padding:7px 9px}}
+.stage-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.4,0,.2,1)}
+.stage.open .stage-panel{grid-template-rows:1fr}
+.stage-panel-inner{overflow:hidden}
+.stage-body{padding:4px 20px 22px;border-top:1px solid var(--line-soft)}
+.stage-body .lbl{margin:18px 0 9px}
+.plist{list-style:none;display:flex;flex-direction:column;gap:7px}
+.plist li{font-size:.94rem;color:var(--muted);display:flex;gap:10px;line-height:1.55}
+.plist li::before{content:"→";color:var(--cyan);font-family:var(--mono);flex:none;font-size:.85rem;margin-top:2px}
+.ba{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:10px}
+@media(max-width:700px){.ba{grid-template-columns:1fr}}
+.ba .col{border:1px solid var(--line);border-radius:9px;padding:12px 13px;background:var(--ink)}
+.ba .col .h{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;display:block}
+.ba .col.mid{border-color:rgba(91,214,138,.35)}
+.ba .col.mid .h{color:var(--green)}
+.ba .col.nx{border-color:rgba(245,166,35,.4)}
+.ba .col.nx .h{color:var(--amber)}
+.ba .col p,.ba .col li{font-size:.82rem;color:var(--muted);line-height:1.5}
+.ba .col ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.ba .col li::before{content:"✓ ";color:var(--green);font-family:var(--mono);font-size:.7rem}
+.ba .col.nx li::before{content:"→ ";color:var(--amber)}
+.layers3{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.layers3 div{border:1px solid var(--line);border-radius:7px;padding:9px 12px;font-size:.84rem;display:flex;gap:12px;align-items:center;background:var(--ink)}
+.layers3 div b{font-family:var(--mono);font-size:.62rem;color:var(--ink);background:var(--cyan);border-radius:4px;padding:2px 7px;font-weight:500}
+.layers3 div span{color:var(--muted);font-family:var(--mono);font-size:.62rem;margin-left:auto;text-align:right}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+@media(max-width:700px){.roles{grid-template-columns:1fr 1fr}}
+.role{border:1px solid var(--line);border-radius:8px;padding:10px 11px;background:var(--ink)}
+.role .r1{font-family:var(--display);font-size:.84rem;font-weight:600;display:block}
+.role .r2{font-family:var(--mono);font-size:.6rem;color:var(--muted);display:block;margin-top:3px;line-height:1.4}
+.role.hub{border-color:rgba(47,208,191,.55);background:var(--cyan-dim)}
+
+/* DECISION QUADRANTS */
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+@media(max-width:700px){.quad{grid-template-columns:1fr}}
+.qcard{border:1px solid var(--line);border-radius:12px;background:var(--ink-2);padding:18px;display:flex;flex-direction:column}
+.qcard .qk{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.qcard .qk span:first-child{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.qcard h4{font-size:1rem;margin-bottom:8px}
+.qcard p{font-size:.9rem;color:var(--muted);line-height:1.55}
+.qcard .gate-tag{margin-top:12px;font-family:var(--mono);font-size:.64rem;color:var(--amber);border-top:1px dashed var(--line);padding-top:10px}
+
+/* TABLES (responsive div tables) */
+.tbl{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:22px;background:var(--ink-2)}
+.tr{display:grid;gap:14px;padding:13px 16px;border-bottom:1px solid var(--line-soft);align-items:start}
+.tr:last-child{border-bottom:none}
+.tr.th{background:var(--ink);font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:10px 16px}
+.tr .c1{font-family:var(--display);font-weight:600;font-size:.9rem;line-height:1.3}
+.tr .c1 small{display:block;font-family:var(--body);font-weight:400;font-size:.76rem;color:var(--faint);margin-top:2px}
+.tr .cx{font-size:.84rem;color:var(--muted);line-height:1.5}
+.tr .cx .ml{display:none;font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+.pill{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:4px 8px;display:inline-block;white-space:nowrap}
+.pill.done{color:var(--green);border:1px solid rgba(91,214,138,.45);background:var(--green-dim)}
+.pill.adv{color:var(--cyan);border:1px solid rgba(47,208,191,.45);background:var(--cyan-dim)}
+.pill.prog{color:var(--muted);border:1px solid var(--line)}
+.pill.dec{color:var(--amber);border:1px solid rgba(245,166,35,.45);background:var(--amber-dim)}
+.t-commit .tr{grid-template-columns:32px 1.15fr 1.5fr 120px}
+.t-prod .tr{grid-template-columns:1.1fr 1fr 1.3fr}
+.t-dec .tr{grid-template-columns:28px 1.3fr .9fr 1.2fr 1fr}
+.num{font-family:var(--mono);font-size:.72rem;color:var(--cyan)}
+@media(max-width:760px){
+  .tr.th{display:none}
+  .t-commit .tr,.t-prod .tr,.t-dec .tr{grid-template-columns:1fr;gap:8px}
+  .tr .cx .ml{display:block}
+  .num{display:none}
+}
+.ask{margin-top:12px;border-radius:11px;background:linear-gradient(90deg,rgba(47,208,191,.16),rgba(47,208,191,.04));border:1px solid rgba(47,208,191,.45);padding:14px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.ask .ak{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--cyan);border-radius:5px;padding:4px 9px}
+.ask p{font-family:var(--display);font-weight:500;font-size:1.02rem;letter-spacing:-.01em}
+
+/* STORYLINE */
+.story{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-top:22px}
+@media(max-width:820px){.story{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:460px){.story{grid-template-columns:repeat(2,1fr)}}
+.sbeat{border:1px solid var(--line);border-radius:9px;background:var(--ink-2);padding:11px 10px 10px;position:relative}
+.sbeat .sn{font-family:var(--mono);font-size:.56rem;color:var(--faint);letter-spacing:.08em}
+.sbeat .st{font-family:var(--display);font-size:.8rem;font-weight:600;line-height:1.25;margin-top:4px;display:block}
+.sbeat .sk{font-family:var(--mono);font-size:.5rem;letter-spacing:.06em;max-width:100%;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;margin-top:8px;display:inline-block;border-radius:4px;padding:2px 6px}
+.sk.inf{color:var(--muted);border:1px solid var(--line)}
+.sk.ev{color:var(--cyan);border:1px solid rgba(47,208,191,.4)}
+.sk.dc{color:var(--ink);background:var(--amber)}
+.sbeat.dcb{border-color:rgba(245,166,35,.55)}
+.story-arc{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.6rem;color:var(--faint);letter-spacing:.12em;text-transform:uppercase;margin-top:10px;gap:10px}
+.story-arc span:nth-child(2){color:var(--muted)}
+.story-arc span:last-child{color:var(--amber)}
+
+/* SLIDE + NOTES */
+.deck{margin-top:22px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--ink-2)}
+.slide{background:#F4F7FB;color:#14243C;padding:20px 22px 18px;position:relative}
+.slide .sh{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:#6A7C96;border-bottom:1px solid #DCE4EF;padding-bottom:9px}
+.slide .sh span:first-child{color:#1F4FA0;font-weight:500}
+.slide h5{font-family:var(--display);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#1F4FA0;margin-top:14px;font-weight:600}
+.slide .shl{font-family:var(--display);font-weight:600;font-size:clamp(1rem,2.2vw,1.25rem);letter-spacing:-.01em;line-height:1.25;margin-top:5px;color:#0F1E33}
+.sgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:640px){.sgrid{grid-template-columns:1fr}}
+.stab{border:1px solid #DCE4EF;border-radius:8px;overflow:hidden;background:#fff}
+.stab .r{display:grid;grid-template-columns:1.2fr 44px 44px;gap:8px;padding:6px 10px;font-size:.74rem;border-bottom:1px solid #EEF2F7;align-items:center}
+.stab .r:last-child{border-bottom:none;font-weight:600;background:#F1F5FA}
+.stab .r.h{font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;color:#7A8BA3;text-transform:uppercase;background:#F8FAFD}
+.stab .r span:nth-child(n+2){text-align:right;font-family:var(--mono);font-size:.72rem}
+.stab .up{color:#13865A}.stab .dn{color:#C0661B}
+.scards{display:flex;flex-direction:column;gap:8px}
+.sc{border-radius:8px;padding:11px 12px}
+.sc.dark{background:#123B7A;color:#fff}
+.sc.light{background:#fff;border:1px solid #DCE4EF}
+.sc .k{font-family:var(--mono);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.sc .v{font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;margin-top:3px;line-height:1.1}
+.sc .v em{font-style:normal;font-size:.72rem;font-family:var(--mono);color:#7FE3B0;margin-left:6px;font-weight:500}
+.sc .x{font-size:.66rem;opacity:.8;margin-top:3px;line-height:1.4}
+.sc.light .v{color:#123B7A}
+.sc.light .v.g{color:#13865A}
+.smsg{margin-top:12px;background:#E7EEF8;border-left:3px solid #1F4FA0;border-radius:0 6px 6px 0;padding:8px 12px;font-size:.78rem;color:#14243C}
+.smsg b{font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;color:#1F4FA0;margin-right:8px}
+.notes{border-top:1px solid var(--line)}
+.ntabs{display:flex;gap:2px;overflow-x:auto;background:var(--ink);padding:8px 10px 0;scrollbar-width:none}
+.ntabs::-webkit-scrollbar{display:none}
+.ntab{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);background:none;border:1px solid transparent;border-bottom:none;border-radius:7px 7px 0 0;padding:8px 12px;cursor:pointer;white-space:nowrap;transition:color .2s}
+.ntab:hover{color:var(--muted)}
+.ntab.on{color:var(--cyan);background:var(--ink-2);border-color:var(--line)}
+.npanel{padding:16px 20px 20px;min-height:132px}
+.npanel p{color:var(--muted);font-size:.93rem;line-height:1.65;max-width:72ch}
+.npanel ol{color:var(--muted);font-size:.93rem;line-height:1.65;padding-left:20px}
+.npanel .cue{font-family:var(--mono);font-size:.62rem;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+
+/* BLOCKER TYPES */
+.btypes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+@media(max-width:760px){.btypes{grid-template-columns:1fr}}
+.btype{border:1px solid var(--line);border-radius:11px;background:var(--ink-2);padding:16px}
+.btype .bh{display:flex;align-items:baseline;gap:10px}
+.btype .bc{font-family:var(--display);font-weight:700;font-size:1.9rem;color:var(--cyan);line-height:1}
+.btype .bl{font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);line-height:1.4}
+.bt p{font-size:.86rem;color:var(--muted);margin-top:9px;line-height:1.5}
+.btype .who{font-family:var(--mono);font-size:.6rem;color:var(--amber);margin-top:10px;border-top:1px dashed var(--line);padding-top:9px}
+
+/* HORIZONS */
+.hz{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+@media(max-width:760px){.hz{grid-template-columns:1fr}}
+.hcol{border:1px solid var(--line);border-radius:11px;background:var(--ink-2);padding:15px 16px}
+.hcol .hh{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--cyan);display:inline-block;border-radius:4px;padding:3px 8px;margin-bottom:10px}
+.hcol:nth-child(2) .hh{background:rgba(47,208,191,.6)}
+.hcol:nth-child(3) .hh{background:var(--amber)}
+.hcol ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.hcol li{font-size:.84rem;color:var(--muted);line-height:1.45}
+.hcol li b{color:var(--text);font-weight:500}
+.crit{margin-top:12px;border:1px dashed var(--line);border-radius:11px;padding:14px 16px}
+.crit .ch{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;display:block}
+.crit ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:5px 18px}
+@media(max-width:600px){.crit ul{grid-template-columns:1fr}}
+.crit li{font-size:.84rem;color:var(--muted);display:flex;gap:8px}
+.crit li::before{content:"☐";color:var(--faint);font-size:.8rem}
+
+/* VALUE PILLARS */
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+@media(max-width:700px){.pillars{grid-template-columns:1fr}}
+.pil{border:1px solid var(--line);border-radius:13px;background:linear-gradient(165deg,var(--panel),var(--ink-2));padding:20px 20px 18px;position:relative;overflow:hidden}
+.pil .pk{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:8px}
+.pil .pk::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--cyan)}
+.pil .pm{font-family:var(--display);font-weight:700;font-size:2rem;letter-spacing:-.03em;margin-top:12px;line-height:1}
+.pil .pm .f{color:var(--faint);font-weight:500;font-size:1.4rem}
+.pil .pm .t{color:var(--cyan)}
+.pil .pmc{font-family:var(--mono);font-size:.6rem;color:var(--faint);letter-spacing:.08em;margin-top:6px}
+.pil h4{font-size:1rem;margin-top:14px}
+.pil ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:9px}
+.pil li{font-size:.87rem;color:var(--muted);display:flex;gap:9px;line-height:1.5}
+.pil li::before{content:"→";color:var(--cyan);font-family:var(--mono);font-size:.8rem;flex:none;margin-top:2px}
+.engage{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+@media(max-width:760px){.engage{grid-template-columns:1fr 1fr}}
+.eg{border:1px solid var(--line);border-radius:10px;background:var(--ink-2);padding:14px}
+.eg .en{font-family:var(--display);font-weight:700;font-size:1.6rem;color:var(--text);line-height:1}
+.eg .el{font-family:var(--mono);font-size:.58rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);margin-top:8px;line-height:1.45}
+
+/* TOOLBOX */
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;max-width:100%}
+.tool{font-family:var(--mono);font-size:.72rem;padding:7px 13px;border:1px solid var(--line);border-radius:20px;color:var(--muted);background:var(--ink-2);white-space:nowrap}
+@media(max-width:520px){.tool{font-size:.66rem;padding:6px 11px}}
+.tool b{color:var(--cyan);font-weight:500}
+
+/* CLOSING */
+.close-box{border:1px solid var(--line);border-radius:14px;background:linear-gradient(160deg,var(--panel-2),var(--ink-2));padding:38px 32px;margin-top:8px;position:relative;overflow:hidden}
+.close-box::after{content:"";position:absolute;bottom:-40px;left:-20px;width:200px;height:200px;background:radial-gradient(circle,var(--cyan-glow),transparent 70%);pointer-events:none}
+.close-box .statement{font-family:var(--display);font-weight:500;font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.4;letter-spacing:-.01em;max-width:62ch;position:relative;z-index:1}
+.close-box .statement em{font-style:normal;color:var(--cyan)}
+.close-box p{color:var(--muted);max-width:64ch;margin-top:16px;font-size:1rem;position:relative;z-index:1}
+.close-box a{color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--line)}
+.close-box a:hover{border-color:var(--cyan)}
+.xlinks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;position:relative;z-index:1}
+@media(max-width:600px){.xlinks{grid-template-columns:1fr}}
+.xlink{display:block;border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none!important;background:var(--ink);transition:border-color .2s,transform .2s}
+.xlink:hover{border-color:var(--cyan)!important;transform:translateY(-1px)}
+.xlink .xk{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block}
+.xlink .xt{font-family:var(--display);font-weight:600;font-size:.98rem;color:var(--text);display:block;margin-top:4px}
+.xlink .xa{color:var(--cyan);font-family:var(--mono);font-size:.8rem}
+
+footer{padding:34px clamp(20px,5vw,28px) 56px!important;color:var(--faint);font-family:var(--mono);font-size:.68rem;text-align:center;border-top:1px solid var(--line-soft);line-height:1.9}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--cyan)}
+
+/* TOOLTIP */
+#tip{position:fixed;z-index:80;pointer-events:none;background:#0B1628;border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-family:var(--mono);font-size:.66rem;color:var(--text);line-height:1.5;max-width:260px;opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+#tip.on{opacity:1;transform:none}
+#tip b{color:var(--cyan);font-weight:500}
+
+.rev{opacity:0;transform:translateY(14px);transition:opacity .65s ease,transform .65s ease}
+.rev.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rev{opacity:1;transform:none;transition:none}
+  *{animation:none!important}
+  .stage-panel,.brow .bf,.gate .fill{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="row">
+    <a class="back" href="../">← Portfolio</a>
+    <span class="tag">Case · Portfolio governance &amp; executive reporting</span>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <span class="eyebrow">Case · Automation &amp; AI portfolio governance</span>
+  <h1>From <span class="dim">activity</span> to <span class="hl">controlled delivery.</span></h1>
+  <p class="lede">How I run a two-dozen-initiative automation and AI portfolio, across seven business areas of a global industrial manufacturer, as an evidence-based system: a stage-gate maturity model, end-to-end traceability, an executive control dashboard, and a management review cycle that ends in decisions, not status updates.</p>
+
+  <div class="hero-viz" id="heroviz">
+        <svg id="flowviz" viewBox="0 0 120 53" aria-label="Animation: two dozen initiatives moving through seven delivery gates from the baseline review to the current review, with five new initiatives entering at the start of the funnel"></svg>
+    <div class="viz-labels"><span class="a" id="vizL">Baseline review · 19 initiatives</span><span class="b" id="vizR">Current review · 24 initiatives</span></div>
+    <div class="viz-legend">
+      <span><i style="background:#2FD0BF"></i>Active initiative</span>
+      <span><i style="background:#F5A623"></i>New this cycle</span>
+      <span><i style="border:1.5px solid #AEBDD6;width:7px;height:7px"></i>Paused / retired by decision</span>
+      <span style="color:var(--faint)">x-axis = maturity across 7 delivery gates</span>
+      <button class="replay" id="replay" type="button" aria-label="Replay the portfolio movement">↻ Replay</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">24</div><div class="l">Initiatives under<br/>one control model</div></div>
+    <div class="stat"><div class="n">7</div><div class="l">Business areas<br/>on a single page</div></div>
+    <div class="stat"><div class="n">58<small>%</small>→63<small>%</small></div><div class="l">Comparable maturity<br/>in one review cycle</div></div>
+    <div class="stat"><div class="n">68<small>%</small>→88<small>%</small></div><div class="l">Named-owner coverage<br/>in one review cycle</div></div>
+  </div>
+
+  <div class="disc">Anonymised. Company, people, systems, ticket and repository identifiers are removed; initiative names are generalised. Counts and percentages are rounded and representative of a real review cycle — the model, the mechanics and the proportions are unchanged.</div>
+</header>
+
+<main>
+
+<!-- 01 PROBLEM -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">01</span><h2>The problem: activity is not progress</h2></div>
+  <p class="sub">Every automation team eventually hits the same wall. Requests multiply, bots go live, people are busy — and leadership still can't answer three simple questions: <em style="font-style:normal;color:var(--text)">what is actually moving, what is stuck, and what do you need from us?</em></p>
+
+  <div class="grid3">
+    <div class="pcard"><span class="pk">Symptom</span><h4>"80% done" for months</h4><p>Progress reported as a feeling or as code written. Near-complete initiatives sit near-complete indefinitely, because nobody defined what evidence closes them.</p></div>
+    <div class="pcard"><span class="pk">Symptom</span><h4>Published ≠ healthy</h4><p>A bot is "in production" — but nobody has looked at its last job. Deployment evidence gets confused with operational evidence.</p></div>
+    <div class="pcard"><span class="pk">Symptom</span><h4>Knowledge lives in people</h4><p>Owner unclear, repository unclear, design docs scattered. The portfolio is only understandable while one specific person remembers it.</p></div>
+  </div>
+
+  <div class="thesis">
+    <div class="big">A portfolio isn't managed by reporting activity. <em>It's managed by evidence, gates and explicit decisions.</em></div>
+    <p>So I stopped reporting what the team did and started reporting what changed: which gates were crossed, on what evidence, what is blocked and by whom — and which decisions leadership needs to take to unlock the next gate. The rest of this page is how that system works.</p>
+  </div>
+</section>
+
+<!-- 02 CONTROL MODEL -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">02</span><h2>The control model — three layers, one truth</h2></div>
+  <p class="sub">Three layers with a single job each, so no number in front of leadership is ever a manual re-typing of another number. Every figure on a slide can be traced back to a row, and every row back to a repository and a runtime log.</p>
+
+  <div class="model">
+    <div class="mcol">
+      <div class="layer hero-l">
+        <span class="ln">Layer 1 · Single source of truth</span>
+        <h4>Portfolio control workbook</h4>
+        <p>One row per initiative. Updated in five minutes; everything downstream recalculates.</p>
+        <ul><li>Status &amp; business area</li><li>7 delivery-gate scores</li><li>Named owner · action owner</li><li>Where it stopped · risks · next step</li><li>Next follow-up date · last update</li></ul>
+      </div>
+    </div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="mcol">
+      <div class="layer">
+        <span class="ln">Layer 2a · Delivery traceability</span>
+        <h4>GitHub Enterprise</h4>
+        <p>Portfolio issue ↔ canonical repository ↔ design documents (PDD / SDD), per initiative.</p>
+      </div>
+      <div class="layer">
+        <span class="ln">Layer 2b · Runtime evidence</span>
+        <h4>UiPath Orchestrator</h4>
+        <p>Process version, triggers, job history, queues — what proves a published bot is actually healthy.</p>
+      </div>
+    </div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="mcol">
+      <div class="layer hero-l">
+        <span class="ln">Layer 3 · Executive layer</span>
+        <h4>Dashboard + management review</h4>
+        <p>A control dashboard and a recurring review deck that turns the data into a narrative — and a list of decisions.</p>
+        <ul><li>KPI tiles &amp; stage-gate funnel</li><li>Maturity by business area</li><li>Delivery &amp; governance alerts</li><li>Decisions requested · owners · dates</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="loopbar"><span class="ic">↺</span><span>Decisions taken in the review are written back into the workbook and the governance backlog — so the next cycle starts from recorded evidence, not from anyone's memory of the last meeting.</span></div>
+
+  <span class="lbl">Governance backlog · standard before clean-up <span class="badge">priority ladder</span></span>
+  <div class="mini-flow">
+    <div class="mini-step on"><span class="mn">P0</span><span class="mt">Confirm the standard</span><span class="ms">9 structural decisions framed for the global owner</span></div>
+    <div class="mini-step"><span class="mn">P1</span><span class="mt">Fix traceability</span><span class="ms">link issue ↔ repo ↔ docs</span></div>
+    <div class="mini-step"><span class="mn">P2</span><span class="mt">Register &amp; clarify</span><span class="ms">missing entries · roles</span></div>
+    <div class="mini-step"><span class="mn">P3</span><span class="mt">Standardise repos</span><span class="ms">README · structure · config</span></div>
+    <div class="mini-step"><span class="mn">P4</span><span class="mt">Feature → Task</span><span class="ms">only where it adds value</span></div>
+  </div>
+  <div class="edge"><b>Design call</b>Mass clean-up of repositories was deliberately paused until the target standard was confirmed. Fixing traceability against a standard that might still change is just rework with extra steps — so the open questions went to the decision-maker first, framed as a prioritised backlog.</div>
+</section>
+
+<!-- 03 MATURITY -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">03</span><h2>Measuring maturity honestly</h2></div>
+  <p class="sub">Maturity is the average of seven delivery gates, each scored on evidence: <b style="color:var(--text);font-weight:500">1.0 confirmed · 0.5 partial · 0 not started</b>. It is deliberately <em style="font-style:normal;color:var(--text)">not</em> a percentage of code written. Try it — click any gate to cycle its score.</p>
+
+  <div class="calc" id="calc">
+    <div class="presets">
+      <span class="pl">Try a profile</span>
+      <button class="pbtn" data-p="0.5,0,0,0,0,0,0" type="button">New intake</button>
+      <button class="pbtn" data-p="1,1,0.5,0,0.5,0,0" type="button">Technical proof</button>
+      <button class="pbtn on" data-p="1,1,1,1,0.5,0.5,0" type="button">"Almost done"</button>
+      <button class="pbtn" data-p="1,1,1,1,1,1,1" type="button">Live &amp; supported</button>
+    </div>
+    <div class="gates" id="gates"></div>
+    <div class="calc-out">
+      <div><div class="score" id="score">71<small>%</small></div><div class="score-l">Delivery maturity</div></div>
+      <div class="calc-msg" id="calcmsg"></div>
+    </div>
+    <div class="scale-key"><span><b style="color:var(--cyan)">■</b> 1.0 confirmed</span><span><b style="color:var(--amber)">■</b> 0.5 partial</span><span><b style="color:var(--faint)">■</b> 0 not started</span><span>Maturity = Σ gates ÷ 7</span></div>
+  </div>
+
+  <span class="lbl">Comparable basis · two numbers, one honest story</span>
+  <div class="basis">
+    <div class="seg" role="tablist">
+      <button class="on" data-b="same" type="button">Same 19 initiatives</button>
+      <button data-b="full" type="button">Full portfolio · 24</button>
+    </div>
+    <div class="basis-body">
+      <div>
+        <div class="bnum" id="bnum"><span class="from">58%</span> → <span class="to">63%</span><span class="d">▲ +5 pts</span></div>
+        <div class="bcap" id="bcap">Comparable maturity · baseline → current review</div>
+      </div>
+      <p id="btext">Measured on exactly the initiatives presented at the previous review, with the same seven gates. This is the number that answers "did the portfolio move?" — without new entries diluting it or flattering it.</p>
+    </div>
+  </div>
+  <div class="edge"><b>Why it matters in the room</b>The portfolio grew from 19 to 24 initiatives in one cycle. Reported naively, average maturity <em style="font-style:normal">dropped</em> — and the first question from leadership would have been "what went wrong?". Separating the comparable basis from the full portfolio turns the same data into the right message: <b style="display:inline;font-family:var(--display);font-size:.92rem;letter-spacing:0;text-transform:none;color:var(--text)">scope increased, but uncertainty decreased.</b></div>
+</section>
+
+<!-- 04 DASHBOARD -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">04</span><h2>The executive control dashboard</h2></div>
+  <p class="sub">A reconstruction of the one-page view leadership gets — rebuilt here with anonymised labels. Delivery on top, governance underneath, alerts at the bottom. Hover any bar for detail.</p>
+
+  <div class="dash">
+    <div class="dash-head">
+      <div><div class="t">Automation portfolio · executive control</div><div class="s">Delivery maturity and traceability governance · regional hub</div></div>
+      <span class="asof">STATUS AS OF · CURRENT CYCLE</span>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="kl">Portfolio</div><div class="kv">24</div><div class="ks">initiatives tracked</div></div>
+      <div class="kpi"><div class="kl">Published</div><div class="kv">4</div><div class="ks">live in orchestrator</div></div>
+      <div class="kpi"><div class="kl">In build</div><div class="kv">14</div><div class="ks">design · build · final tests</div></div>
+      <div class="kpi"><div class="kl">Not yet in build</div><div class="kv">6</div><div class="ks">initial · planned · hold</div></div>
+      <div class="kpi acc"><div class="kl">Avg. maturity</div><div class="kv">55%</div><div class="ks">7-gate average · full portfolio</div></div>
+    </div>
+
+    <div class="dgrid">
+      <div class="dpanel">
+        <div class="ph"><span>Stage-gate control</span><span>initiatives with gate confirmed</span></div>
+        <div id="funnel"></div>
+      </div>
+      <div class="dpanel">
+        <div class="ph"><span>Maturity by business area</span><span>avg. of 7 gates</span></div>
+        <div id="areas"></div>
+      </div>
+      <div class="dpanel">
+        <div class="ph"><span>Traceability coverage</span><span>of 24 initiatives</span></div>
+        <div id="trace"></div>
+        <div class="dash-foot" style="margin-top:14px;border-top:1px dashed var(--line);padding-top:10px">Traceability = portfolio issue ↔ canonical repo ↔ design doc ↔ key-user sign-off. Structural standard decided first (P0), clean-up second — no rework.</div>
+      </div>
+      <div class="dpanel">
+        <div class="ph"><span>Portfolio by status</span><span>24 initiatives</span></div>
+        <div class="stack" id="stack"></div>
+        <div class="skey" id="skey"></div>
+        <div class="ph" style="margin-top:18px"><span>Delivery alerts</span><span>hold · failure · open decision</span></div>
+        <div class="alerts">
+          <div class="al"><span class="tg warn">Fix</span><span>Published bot with a data issue — correction in progress</span></div>
+          <div class="al"><span class="tg warn">Verify</span><span>Job failure marked fixed — recovery evidence still to attach</span></div>
+          <div class="al"><span class="tg hold">Hold</span><span>AI service paused — native ERP solution may already cover it</span></div>
+          <div class="al"><span class="tg hold">Retire</span><span>Monitor switched off at business request — document retirement</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-foot">How to read: delivery tiles measure confirmed gates; governance tiles measure whether the initiative is traceable. The two are deliberately separate — a bot can be fully delivered and still poorly governed, and vice versa.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="pcard"><span class="pk c">Reading the funnel</span><h4>The bottleneck is approval, not code</h4><p>The steepest drops sit at approved design (−6) and business acceptance (−5). That reframes the conversation with leadership: more developers wouldn't move these — owner decisions would.</p></div>
+    <div class="pcard"><span class="pk c">Reading governance</span><h4>Only 5 of 24 are fully aligned</h4><p>Shown on purpose. A dashboard that only shows green stops being trusted; making the gap visible is what earned the mandate to set a traceability standard.</p></div>
+  </div>
+</section>
+
+<!-- 05 MOVEMENT -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">05</span><h2>Portfolio in motion — one cycle, initiative by initiative</h2></div>
+  <p class="sub">Movement only counts when a gate criterion is evidenced. Hollow marker = previous review, solid = today. Status changes and risk reduction that don't move the score are reported separately — never smuggled into the percentage. Initiatives are shown by area code (FIN finance &amp; controlling · PUR purchasing · QUA quality · TRN training · SVC sales &amp; service · PLN production planning).</p>
+
+  <div class="move" id="move">
+    <div class="mv-axis"><span>Initiative</span><div class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div><span style="text-align:right">Δ pts</span></div>
+    <div id="mvrows"></div>
+    <div class="mv-key">
+      <span><i style="border:2px solid #6C81A2"></i>Previous review</span>
+      <span><i style="background:#2FD0BF"></i>Current review</span>
+      <span><i style="background:#F5A623"></i>New entry · no baseline</span>
+      <span><i style="border:2px solid #AEBDD6"></i>Paused by decision</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="pcard"><span class="pk">The counter-intuitive one</span><h4>A score that went <em style="font-style:normal;color:var(--amber)">down</em> is good news</h4><p>FIN-03, a document workflow, lost 4 points because its first phase was redesigned and re-scored against a stricter scope. Lower score, lower risk — and saying so openly is what keeps the scores credible.</p></div>
+    <div class="pcard"><span class="pk">The quiet one</span><h4>+2 points, biggest risk reduction</h4><p>QUA-01 moved only two points — but it went from on-hold to an owned technical route with a simpler MVP. The score is a control signal; the next gate is the management focus.</p></div>
+  </div>
+</section>
+
+<!-- 06 INSIDE -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">06</span><h2>Inside the portfolio — three moves that changed the risk profile</h2></div>
+  <p class="sub">Each deep dive reads the same way leadership sees it: where it stood at the last review, what was delivered since, where it is now, and the next gate.</p>
+
+  <div class="stages">
+
+    <div class="stage open">
+      <button class="stage-toggle" aria-expanded="true">
+        <span class="stage-num mono">D1</span>
+        <span class="stage-main">
+          <span class="stage-name">QUA-01 · Quality tracking — from on-hold to a simpler, controlled MVP</span>
+          <span class="stage-summary">The blocker of the last review became an owned technical route and a redesigned scope.</span>
+          <span class="stage-meta"><span class="mtag">Quality</span><span class="mtag t">Redesign to de-risk</span><span class="mtag c">ERP · RPA</span></span>
+        </span>
+        <span class="expand"><span class="tx">Close</span><span class="ic">+</span></span>
+      </button>
+      <div class="stage-panel"><div class="stage-panel-inner"><div class="stage-body">
+        <span class="lbl">Before → delivered → next</span>
+        <div class="ba">
+          <div class="col"><span class="h">Previous review</span><p>On hold. ERP query work paused pending system input and key-user availability.</p></div>
+          <div class="col mid"><span class="h">Delivered since</span><ul><li>ERP query route agreed, request raised</li><li>Second working session completed</li><li>Broad semantic interpretation removed from v1</li><li>Business-entered context protected from overwrite</li><li>Read-only validation on real records</li></ul></div>
+          <div class="col nx"><span class="h">Next gate</span><ul><li>Business confirmation</li><li>Design doc &amp; mapping update</li><li>ERP feasibility</li><li>Read-only proof of concept</li></ul></div>
+        </div>
+        <span class="lbl">The redesign · three layers</span>
+        <div class="layers3">
+          <div><b>1</b>Project portfolio data<span>deterministic</span></div>
+          <div><b>2</b>Automated quality dataset<span>deterministic</span></div>
+          <div><b>3</b>Manual follow-up view<span>human judgement</span></div>
+        </div>
+        <div class="edge"><b>The judgement call</b>The first version tried to interpret free text. The redesigned MVP keeps automation on deterministic data and keeps automatic and manual fields separate — so the bot can never overwrite a business decision. A smaller first release with far less technical risk.</div>
+      </div></div></div>
+    </div>
+
+    <div class="stage">
+      <button class="stage-toggle" aria-expanded="false">
+        <span class="stage-num mono">D2</span>
+        <span class="stage-main">
+          <span class="stage-name">PLN-02 · From an RPA request to a decision-support initiative</span>
+          <span class="stage-summary">Reframed the ask, reused what already existed, and designed out single-person dependency.</span>
+          <span class="stage-meta"><span class="mtag">Production planning</span><span class="mtag t">Reframe the problem</span><span class="mtag c">Analytics · governance</span></span>
+        </span>
+        <span class="expand"><span class="tx">Expand</span><span class="ic">+</span></span>
+      </button>
+      <div class="stage-panel"><div class="stage-panel-inner"><div class="stage-body">
+        <span class="lbl">Before → delivered → next</span>
+        <div class="ba">
+          <div class="col"><span class="h">Previous review</span><p>Not a portfolio initiative — visible only as a narrow automation request.</p></div>
+          <div class="col mid"><span class="h">Delivered since</span><ul><li>Existing purchasing analytics recognised as reusable assets</li><li>"Reuse before rebuild" adopted</li><li>Decision-support model set as the core; automation as enabler</li><li>Workstreams, governance, roadmap and discovery plan</li></ul></div>
+          <div class="col nx"><span class="h">Next gate</span><ul><li>Executive kickoff</li><li>Discovery authorisation</li><li>Data &amp; analytics reuse assessment</li><li>Validated reuse map</li></ul></div>
+        </div>
+        <span class="lbl">Proposed operating model</span>
+        <div class="roles">
+          <div class="role"><span class="r1">Industrial management</span><span class="r2">Sponsor · steering</span></div>
+          <div class="role"><span class="r1">Planning</span><span class="r2">Process owner</span></div>
+          <div class="role hub"><span class="r1">AI &amp; automation hub</span><span class="r2">Discovery · data inventory · reuse · governance</span></div>
+          <div class="role"><span class="r1">Domain areas</span><span class="r2">Functional &amp; data contributors</span></div>
+        </div>
+        <div class="edge"><b>Portfolio thinking</b>The cheapest automation is the one you don't build. The request asked for a bot; the business needed decision support — and much of the data already existed in another department. The governance model keeps one contributor from becoming the critical path.</div>
+      </div></div></div>
+    </div>
+
+    <div class="stage">
+      <button class="stage-toggle" aria-expanded="false">
+        <span class="stage-num mono">D3</span>
+        <span class="stage-main">
+          <span class="stage-name">PLN-01 · Planning data sync — from new demand to technical proof in one cycle</span>
+          <span class="stage-summary">Entered after the last review; arrived at this one with a working extraction and a clear next gate.</span>
+          <span class="stage-meta"><span class="mtag">Production planning</span><span class="mtag t">Fast, governed intake</span><span class="mtag c">ERP → planning</span></span>
+        </span>
+        <span class="expand"><span class="tx">Expand</span><span class="ic">+</span></span>
+      </button>
+      <div class="stage-panel"><div class="stage-panel-inner"><div class="stage-body">
+        <span class="lbl">Before → delivered → next</span>
+        <div class="ba">
+          <div class="col"><span class="h">Previous review</span><p>Not in the portfolio. Demand identified with the planning team after the review.</p></div>
+          <div class="col mid"><span class="h">Delivered since</span><ul><li>Portfolio issue + canonical repository</li><li>Kickoff · core business rules confirmed</li><li>Date-priority business rule validated</li><li>Deterministic business-key principle</li><li>Design doc to v0.3 · ERP extraction test passed</li></ul></div>
+          <div class="col nx"><span class="h">Next gate</span><ul><li>ERP output vs. planning cross-check</li><li>Milestone coverage validation</li><li>Definitive ERP-to-planning key</li><li>Authorisations → solution design</li></ul></div>
+        </div>
+        <div class="edge"><b>What "new" means here</b>A new initiative enters with an owner, a current position and a defined next gate before any development capacity is committed. Technical feasibility stopped being hypothetical — and the remaining risk is now named precisely: coverage and key mapping.</div>
+      </div></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 07 SCOPE DECISIONS -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">07</span><h2>Decisions not to build</h2></div>
+  <p class="sub">A mature portfolio is visible in what it refuses to do. In a single cycle, discovery drew four boundaries — before any effort was spent on low-value or redundant automation.</p>
+
+  <div class="quad">
+    <div class="qcard"><div class="qk"><span>Clarified</span><span class="pill done">Closed</span></div><h4>Two requests, one name</h4><p>Two requests with the same name turned out to be separate processes in two departments. Split cleanly; the broader analytical need routed to a cross-functional decision-support initiative.</p><div class="gate-tag">→ no duplicated build</div></div>
+    <div class="qcard"><div class="qk"><span>Stop or re-scope</span><span class="pill dec">Decision gate</span></div><h4>The workbook already does the maths</h4><p>Discovery showed the existing workbook already held the calculation logic; a bot would only refresh source data. Limited value — and the same discovery surfaced a stronger opportunity elsewhere in the closing process.</p><div class="gate-tag">→ build avoided · better candidate found</div></div>
+    <div class="qcard"><div class="qk"><span>Paused</span><span class="pill dec">Decision gate</span></div><h4>The ERP may already solve it</h4><p>An AI-assisted service was separated from an unrelated reporting request, and build work was paused once a native ERP solution was found that may already cover the need.</p><div class="gate-tag">→ resume · re-scope · close on coverage evidence</div></div>
+    <div class="qcard"><div class="qk"><span>Retired</span><span class="pill prog">Business call</span></div><h4>Switched off — not failed</h4><p>A production monitor was disabled at the business's request. Reported as a business decision, with retirement scope to document — so "published went from 5 to 4" never reads as a delivery failure.</p><div class="gate-tag">→ confirm permanent retirement</div></div>
+  </div>
+  <div class="edge"><b>The principle</b>The goal is not the highest robot count. It's the right solution for a justified business need — and sometimes that solution is a spreadsheet that already exists, or a native feature someone else is shipping.</div>
+</section>
+
+<!-- 08 PRODUCTION -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">08</span><h2>Production footprint — published is not the same as healthy</h2></div>
+  <p class="sub">"Published" confirms deployment. Only triggers and recent job history confirm health. So every live automation is followed into operation, with a named next verification.</p>
+
+  <div class="tbl t-prod">
+    <div class="tr th"><span>Automation · area</span><span>Previous review</span><span>Current · next verification</span></div>
+    <div class="tr"><div class="c1">LIVE-01<small>Controlling · queue-triggered</small></div><div class="cx"><span class="ml">Previous</span>Queue trigger active</div><div class="cx"><span class="ml">Current</span><span class="pill dec">Correction</span> Data issue reported by the business — correction in progress with the ERP team</div></div>
+    <div class="tr"><div class="c1">LIVE-02<small>Purchasing · unattended</small></div><div class="cx"><span class="ml">Previous</span>Trigger active</div><div class="cx"><span class="ml">Current</span><span class="pill prog">Verify</span> Published — check latest job result</div></div>
+    <div class="tr"><div class="c1">LIVE-03<small>Purchasing · unattended</small></div><div class="cx"><span class="ml">Previous</span>Job failure · fixed</div><div class="cx"><span class="ml">Current</span><span class="pill prog">Evidence</span> Attach recovery evidence · fix traceability</div></div>
+    <div class="tr"><div class="c1">LIVE-04<small>Purchasing · unattended</small></div><div class="cx"><span class="ml">Previous</span>Trigger active</div><div class="cx"><span class="ml">Current</span><span class="pill prog">Retire</span> Disabled at business request — document retirement</div></div>
+    <div class="tr"><div class="c1">LIVE-05<small>Shared service component</small></div><div class="cx"><span class="ml">Previous</span>Trigger active</div><div class="cx"><span class="ml">Current</span><span class="pill adv">Validate</span> New consuming processes validated scenario by scenario</div></div>
+  </div>
+</section>
+
+<!-- 09 LEADERSHIP -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">09</span><h2>Taking it to leadership</h2></div>
+  <p class="sub">I prepare and present a recurring portfolio review to management and to the global department owner. It is built as an argument, not a status report: evidence first, then where the portfolio is gated, then the decisions only that room can take.</p>
+
+  <span class="lbl">The storyline · every review, same shape</span>
+  <div class="story">
+    <div class="sbeat"><span class="sn">01</span><span class="st">At a glance since last review</span><span class="sk inf">Context</span></div>
+    <div class="sbeat"><span class="sn">02</span><span class="st">Last commitments — what happened</span><span class="sk ev">Accountability</span></div>
+    <div class="sbeat"><span class="sn">03</span><span class="st">Movement by initiative</span><span class="sk ev">Evidence</span></div>
+    <div class="sbeat"><span class="sn">04</span><span class="st">Deep dives</span><span class="sk ev">Evidence</span></div>
+    <div class="sbeat"><span class="sn">05</span><span class="st">New demand &amp; scope decisions</span><span class="sk ev">Evidence</span></div>
+    <div class="sbeat"><span class="sn">06</span><span class="st">Production footprint</span><span class="sk ev">Evidence</span></div>
+    <div class="sbeat"><span class="sn">07</span><span class="st">Where it's gated · blockers</span><span class="sk inf">Diagnosis</span></div>
+    <div class="sbeat dcb"><span class="sn">08</span><span class="st">Decisions &amp; next steps</span><span class="sk dc">Decision</span></div>
+  </div>
+  <div class="story-arc"><span>Context</span><span>Evidence →</span><span>Decision</span></div>
+
+  <span class="lbl">Anatomy of a slide <span class="badge">every slide ships with five layers of speaker notes</span></span>
+  <div class="deck">
+    <div class="slide" aria-label="Anonymised reconstruction of a review slide">
+      <div class="sh"><span>Portfolio progress review</span><span>Status · current cycle</span></div>
+      <h5>Since the last review at a glance</h5>
+      <div class="shl">The portfolio grew from 19 to 24 initiatives while existing ones moved into clearer delivery gates.</div>
+      <div class="sgrid">
+        <div class="stab">
+          <div class="r h"><span>Category</span><span>Prev</span><span>Now</span></div>
+          <div class="r"><span>Published</span><span>5</span><span class="dn">4</span></div>
+          <div class="r"><span>Near complete</span><span>4</span><span>4</span></div>
+          <div class="r"><span>In progress / design</span><span>4</span><span class="up">10</span></div>
+          <div class="r"><span>Backlog / evaluation</span><span>5</span><span>4</span></div>
+          <div class="r"><span>On hold</span><span>1</span><span>2</span></div>
+          <div class="r"><span>Total · +5 new, none removed</span><span>19</span><span class="up">24</span></div>
+        </div>
+        <div class="scards">
+          <div class="sc dark"><div class="k">Delivery maturity · same 19</div><div class="v">58% → 63%<em>▲ +5 pts</em></div><div class="x">Comparable basis · seven confirmed gates</div></div>
+          <div class="sc light"><div class="k">Full portfolio · 24</div><div class="v">55%</div><div class="x">New entries start at the top of the funnel — scope growth, not lost progress</div></div>
+          <div class="sc light"><div class="k">New evidence this cycle</div><div class="v g">16 / 24</div></div>
+        </div>
+      </div>
+      <div class="smsg"><b>EXECUTIVE MESSAGE</b>Scope increased, but uncertainty decreased — the portfolio is larger and more controlled.</div>
+    </div>
+    <div class="notes">
+      <div class="ntabs" role="tablist">
+        <button class="ntab on" data-n="0" type="button">Script</button>
+        <button class="ntab" data-n="1" type="button">Visual guide</button>
+        <button class="ntab" data-n="2" type="button">Metric cheat sheet</button>
+        <button class="ntab" data-n="3" type="button">Anticipated questions</button>
+        <button class="ntab" data-n="4" type="button">Delivery cue</button>
+      </div>
+      <div class="npanel" id="npanel"></div>
+    </div>
+  </div>
+  <div class="edge"><b>Why five layers</b>The script makes the message land in two minutes. The visual guide tells anyone reading the deck later how to read it without me. The cheat sheet defines every metric before someone challenges it. The anticipated questions are rehearsed, not improvised. The delivery cue is pacing. The deck is drafted with an AI copilot from the workbook — and every number is checked back against the source of truth before it is shown.</div>
+
+  <span class="lbl">Closing the loop on last cycle's commitments</span>
+  <div class="tbl t-commit">
+    <div class="tr th"><span>#</span><span>Commitment · previous review</span><span>What happened since</span><span>Status</span></div>
+    <div class="tr"><span class="num">01</span><div class="c1">Validate production health<small>Confirm triggers and jobs; recover a failed job</small></div><div class="cx"><span class="ml">Since</span>One monitor retired on request · shared-component integrations in validation · one data issue found and under correction</div><div><span class="pill prog">In progress</span></div></div>
+    <div class="tr"><span class="num">02</span><div class="c1">Convert near-complete initiatives<small>Confirm operating status of four near-complete automations</small></div><div class="cx"><span class="ml">Since</span>No new evidence — business validation and go-live dates still open</div><div><span class="pill dec">Decision pending</span></div></div>
+    <div class="tr"><span class="num">03</span><div class="c1">Remove critical blockers<small>ERP dependency · phase-1 scope approval</small></div><div class="cx"><span class="ml">Since</span>QUA-01 restarted on a new ERP route · FIN-03 phase 1 redesigned and sent for review</div><div><span class="pill adv">Advanced</span></div></div>
+    <div class="tr"><span class="num">04</span><div class="c1">Prioritise the backlog<small>Choose what enters the next cycle</small></div><div class="cx"><span class="ml">Since</span>3 of 5 backlog items moved into design or decision · overlapping requests separated</div><div><span class="pill done">Done</span></div></div>
+    <div class="tr"><span class="num">05</span><div class="c1">Close governance gaps<small>Owner and identifier coverage</small></div><div class="cx"><span class="ml">Since</span>Named-owner coverage 68% → 88% · per-initiative traceability tracking introduced</div><div><span class="pill adv">Advanced</span></div></div>
+  </div>
+  <p class="sub" style="font-size:.9rem;margin-top:12px">Rule: a commitment is marked <em style="font-style:normal;color:var(--text)">advanced</em> only when documented evidence changes the next gate — never because meetings took place. Four of five advanced or closed; the one that didn't is named, not hidden.</p>
+
+  <span class="lbl">Blockers, classified by who can unblock them</span>
+  <div class="btypes">
+    <div class="btype"><div class="bh"><span class="bc">7</span><span class="bl">Business approval /<br/>revalidation</span></div><p>Near-complete go-live confirmations, design-doc approvals, MVP sign-offs, scope decisions.</p><div class="who">Unblocked by → process owners</div></div>
+    <div class="btype"><div class="bh"><span class="bc">5</span><span class="bl">Technical /<br/>infrastructure validation</span></div><p>ERP mapping, external-platform connectivity, dataset validation, data correction.</p><div class="who">Unblocked by → IT, ERP &amp; infra teams</div></div>
+    <div class="btype"><div class="bh"><span class="bc">3</span><span class="bl">Executive governance /<br/>scope decision</span></div><p>Cross-functional kickoff, native-solution coverage call, governance regularisation.</p><div class="who">Unblocked by → leadership forum</div></div>
+  </div>
+  <p class="sub" style="font-size:.9rem;margin-top:12px">Grouping blockers by decision type makes one thing obvious to the room: technical effort cannot resolve a business-ownership decision.</p>
+
+  <span class="lbl">Decisions requested from the forum <span class="badge">5 of 10 shown</span></span>
+  <div class="tbl t-dec">
+    <div class="tr th"><span>#</span><span>Decision</span><span>Owner / forum</span><span>Evidence available</span><span>What it unlocks</span></div>
+    <div class="tr"><span class="num">1</span><div class="c1">Confirm operating status of four adjusted automations<small>Open since last review</small></div><div class="cx"><span class="ml">Owner</span>Business key users</div><div class="cx"><span class="ml">Evidence</span>Previously run locally · adjusted · returned to UAT</div><div class="cx"><span class="ml">Unlocks</span>Validated, controlled operation</div></div>
+    <div class="tr"><span class="num">2</span><div class="c1">Approve PLN-02 decision-support operating model</div><div class="cx"><span class="ml">Owner</span>Industrial mgmt · planning</div><div class="cx"><span class="ml">Evidence</span>Kickoff proposal · reuse strategy · governance</div><div class="cx"><span class="ml">Unlocks</span>Discovery + reuse map</div></div>
+    <div class="tr"><span class="num">3</span><div class="c1">Support PLN-01 ERP-to-planning validation</div><div class="cx"><span class="ml">Owner</span>Planning · ERP · hub</div><div class="cx"><span class="ml">Evidence</span>Design doc v0.3 · successful extraction</div><div class="cx"><span class="ml">Unlocks</span>Solution design</div></div>
+    <div class="tr"><span class="num">4</span><div class="c1">Approve redesigned QUA-01 MVP</div><div class="cx"><span class="ml">Owner</span>Project management</div><div class="cx"><span class="ml">Evidence</span>Working session · field model · sample records</div><div class="cx"><span class="ml">Unlocks</span>Mapping · ERP feasibility · PoC</div></div>
+    <div class="tr"><span class="num">5</span><div class="c1">Stop or re-scope FIN-06</div><div class="cx"><span class="ml">Owner</span>Controlling</div><div class="cx"><span class="ml">Evidence</span>Completed discovery · demonstrated workbook</div><div class="cx"><span class="ml">Unlocks</span>Effort redirected to a stronger case</div></div>
+  </div>
+  <div class="ask"><span class="ak">The ask</span><p>Assign an owner and a decision date to each of these ten gates — today.</p></div>
+
+  <span class="lbl">Commitments until the next review</span>
+  <div class="hz">
+    <div class="hcol"><span class="hh">Now</span><ul><li><b>PLN-01</b> — ERP vs. planning cross-check</li><li><b>QUA-01</b> — confirmation · mapping update</li><li><b>LIVE-01</b> — correct data issue · validate</li><li><b>TRN-01</b> — close connectivity gate</li></ul></div>
+    <div class="hcol"><span class="hh">Next</span><ul><li><b>PLN-02</b> — kickoff · authorise discovery</li><li><b>FIN-07</b> — formal design approval</li><li><b>FIN-03</b> — business revalidation</li><li><b>FIN-05</b> — validate dataset</li></ul></div>
+    <div class="hcol"><span class="hh">By next review</span><ul><li><b>Near-complete group</b> — go-live decisions</li><li><b>FIN-06</b> — record stop / re-scope</li><li><b>FIN-08</b> — accept or reject</li><li><b>SVC-01</b> — resume / re-scope / close</li></ul></div>
+  </div>
+  <div class="crit">
+    <span class="ch">Success criteria for the next review · decisions, not a speculative maturity target</span>
+    <ul>
+      <li>≥ 1 near-complete operating-status confirmation recorded</li>
+      <li>LIVE-01 data issue corrected and validated</li>
+      <li>PLN-01 ERP-to-planning result documented</li>
+      <li>QUA-01 MVP approved or corrections recorded</li>
+      <li>Infrastructure decision recorded</li>
+      <li>PLN-02 kickoff completed</li>
+      <li>FIN-06 decision recorded</li>
+      <li>New opportunity accepted or rejected</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10 VALUE -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">10</span><h2>The value it creates</h2></div>
+  <p class="sub">Four things leadership gets from this system that it didn't have before — each one with a mechanism behind it, not a slogan.</p>
+
+  <div class="pillars">
+    <div class="pil">
+      <span class="pk">Governance</span>
+      <div class="pm"><span class="f">68%</span> → <span class="t">88%</span></div>
+      <div class="pmc">named-owner coverage · one review cycle</div>
+      <h4>Every open item has an owner and a date</h4>
+      <ul><li>One next step, one action owner and one follow-up date per initiative</li><li>Follow-up triggers defined for 16 of 24 — a control that didn't exist before</li><li>Structural questions framed as a prioritised backlog for the global owner</li></ul>
+    </div>
+    <div class="pil">
+      <span class="pk">Traceability</span>
+      <div class="pm"><span class="t">5</span> <span class="f" style="font-size:1rem">dimensions</span></div>
+      <div class="pmc">tracked per initiative, end to end</div>
+      <h4>Transferable without anyone's memory</h4>
+      <ul><li>Portfolio issue · canonical repository · key-user discovery · design doc · full alignment</li><li>Gaps shown openly: 5 of 24 fully aligned today, with a plan to close the rest</li><li>The test: anyone can pick up any initiative from its trail alone</li></ul>
+    </div>
+    <div class="pil">
+      <span class="pk">Return on investment</span>
+      <div class="pm"><span class="t">≈280</span><span class="f" style="font-size:1rem"> h/yr</span></div>
+      <div class="pmc">intake baseline on one new request · estimate, not realised</div>
+      <h4>Value measured — not promised</h4>
+      <ul><li>Manual-effort baselines captured at intake and labelled honestly as estimates until realised</li><li>Cost avoidance made explicit: low-value and redundant builds stopped before effort was spent</li><li>"Reuse before rebuild" — existing analytics treated as assets, not replaced</li></ul>
+    </div>
+    <div class="pil">
+      <span class="pk">Visibility</span>
+      <div class="pm"><span class="t">1</span> <span class="f" style="font-size:1rem">page · 7 areas</span></div>
+      <div class="pmc">same shape every cycle</div>
+      <h4>Business visibility across every department</h4>
+      <ul><li>Finance, controlling, purchasing, quality, training, service and planning on one view</li><li>Delivery and governance separated, so neither flatters the other</li><li>Alerts for holds, failures and open decisions — surfaced, not discovered</li></ul>
+    </div>
+  </div>
+
+  <span class="lbl">The hub inside the business · engagement measured by outcomes</span>
+  <div class="engage">
+    <div class="eg"><div class="en">16<span style="color:var(--faint);font-size:1rem">/24</span></div><div class="el">Initiatives with new evidence this cycle</div></div>
+    <div class="eg"><div class="en">5</div><div class="el">Business validations completed</div></div>
+    <div class="eg"><div class="en">4</div><div class="el">Business decisions formally requested</div></div>
+    <div class="eg"><div class="en">4</div><div class="el">Technical follow-ups active with IT &amp; ERP</div></div>
+  </div>
+  <div class="edge"><b>How the hub avoids becoming a development queue</b>Understand the business need, test the process boundary, pick the right solution — RPA, AI, a native feature, or nothing — and convert the result into a governed next gate. Credit belongs to the business owners, developers and technical partners who produce the evidence together.</div>
+</section>
+
+<!-- 11 TOOLBOX -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">11</span><h2>Toolbox</h2></div>
+  <p class="sub">Portfolio management sits on top of the delivery stack — it uses the same systems the bots run on as its evidence base.</p>
+  <div class="tools">
+    <span class="tool"><b>Stage-gate</b> portfolio control</span>
+    <span class="tool">7-gate maturity model</span>
+    <span class="tool"><b>Excel</b> control workbook · dashboard</span>
+    <span class="tool"><b>GitHub Enterprise</b> · issues · repos · projects</span>
+    <span class="tool"><b>UiPath Orchestrator</b> · runtime evidence</span>
+    <span class="tool">PDD / SDD</span>
+    <span class="tool">Executive reporting · PowerPoint</span>
+    <span class="tool"><b>AI copilot</b> · deck drafting</span>
+    <span class="tool">Governance backlog · RACI</span>
+    <span class="tool">Stakeholder management</span>
+    <span class="tool">SAP S/4HANA (integration context)</span>
+    <span class="tool">DMAIC · BPM</span>
+  </div>
+</section>
+
+<!-- 12 CLOSING -->
+<section class="wrap rev">
+  <div class="stitle"><span class="idx">12</span><h2>The principle underneath</h2></div>
+  <div class="close-box">
+    <p class="statement">Visibility is only the beginning. The real deliverable is <em>conversion</em> — every open gate with an owner, an evidence path and a decision date, reviewed by the people who can actually unblock it.</p>
+    <p>This case is the management layer. The two below are the layers underneath it — the method that stands an automation function up, and the engineering that keeps each bot alive in production.</p>
+    <div class="xlinks">
+      <a class="xlink" href="../method/"><span class="xk">Method</span><span class="xt">From chaos to system <span class="xa">→</span></span></a>
+      <a class="xlink" href="../uipath/"><span class="xk">Case · engineering</span><span class="xt">UiPath bots that hold up in production <span class="xa">→</span></span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  Bruno Queiroz · Portfolio governance case · anonymised · names, identifiers and systems removed · figures rounded and representative<br/>
+  <a href="../">← Back to portfolio</a>
+</footer>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+/* ════════ DATA (anonymised · rounded) ════════ */
+// maturity at previous review (p) and current review (c); null p = new this cycle; s: 'hold' = paused/retired
+const PORT=[
+  {p:1.00,c:1.00},{p:.84,c:.84},{p:.84,c:.84},{p:.77,c:.77},{p:.77,c:.77},{p:.46,c:.43},{p:.14,c:.14},
+  {p:.43,c:.56},{p:.14,c:.14},{p:.14,c:.36},{p:null,c:.07},{p:null,c:.50},{p:.59,c:.61},{p:.50,c:.58},
+  {p:1.00,c:1.00},{p:.94,c:.94},{p:1.00,c:1.00,s:'hold'},{p:0,c:.43},{p:0,c:0},{p:1.00,c:1.00},
+  {p:.44,c:.51,s:'hold'},{p:null,c:.07},{p:null,c:.44},{p:null,c:.11}
+];
+const GATES=[
+  ['Discovery','Need, scope, owner, AS-IS and evidence'],
+  ['Feasibility','Value, constraints, data and solution options'],
+  ['Design docs','Business process (PDD) and technical design (SDD) approved'],
+  ['Build','Build, configuration and component tests'],
+  ['ERP config','Roles, queries, variants and ERP dependencies'],
+  ['UAT','Business validates the solution'],
+  ['Go-live','Supported operating model and release evidence']
+];
+const FUNNEL=[20,18,12,10,9,4,4];
+const AREAS=[
+  ['Shared services',100,1],['Purchasing',67,5],['Quality',61,1],['Training (AI)',58,1],
+  ['Finance & controlling',54,12],['Sales & service',29,2],['Production planning',28,2]
+];
+const TRACE=[
+  ['Key-user discovery',17],['Canonical repository',13],['Portfolio issue',12],['Design doc (PDD)',10],['Fully aligned',5]
+];
+const STATUS=[
+  ['Published',4,'#2FD0BF'],['Near complete',4,'rgba(47,208,191,.72)'],['In build / design',10,'rgba(47,208,191,.45)'],
+  ['Initial / planned',4,'rgba(47,208,191,.22)'],['On hold',2,'#3A4F6E']
+];
+const MOVES=[
+  ['PUR-04 · Purchasing analytics','Backlog → process design',0,43,null,43],
+  ['FIN-07 · Controlling calculation','Backlog → design approval',14,36,null,21],
+  ['FIN-05 · Finance reconciliation','Requirements → build',43,56,null,13],
+  ['TRN-01 · AI content generator','Requirements → build',50,58,null,8],
+  ['SVC-01 · AI-assisted service','Design → paused (ERP overlap)',44,51,'pause',7],
+  ['QUA-01 · Quality tracking','On hold → in progress',59,61,null,2],
+  ['FIN-03 · Document workflow','Phase 1 redesigned · re-scored',46,43,null,-4]
+];
+const NEWS=[
+  ['FIN-09 · Finance data update','Built · in final validation',50],
+  ['PLN-01 · Planning data sync','Technical proof done',44],
+  ['PLN-02 · Planning decision support','Kickoff preparation',11],
+  ['FIN-08 · Month-end extract','Business validation',7],
+  ['SVC-02 · Sales reporting','Process validation',7]
+];
+
+/* ════════ TOOLTIP ════════ */
+const tip=document.getElementById('tip');
+function showTip(e,html){tip.innerHTML=html;tip.classList.add('on');moveTip(e)}
+function moveTip(e){
+  const x=(e.touches?e.touches[0].clientX:e.clientX),y=(e.touches?e.touches[0].clientY:e.clientY);
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  let l=x+14,t=y+14;
+  if(l+w>window.innerWidth-8)l=x-w-14;
+  if(t+h>window.innerHeight-8)t=y-h-14;
+  tip.style.left=Math.max(8,l)+'px';tip.style.top=Math.max(8,t)+'px';
+}
+function hideTip(){tip.classList.remove('on')}
+function bindTip(el,html){
+  el.addEventListener('mouseenter',e=>showTip(e,html));
+  el.addEventListener('mousemove',moveTip);
+  el.addEventListener('mouseleave',hideTip);
+  el.addEventListener('touchstart',e=>{showTip(e,html);setTimeout(hideTip,2200)},{passive:true});
+}
+
+/* ════════ HERO · PORTFOLIO IN MOTION ════════ */
+(function(){
+  const svg=document.getElementById('flowviz');const NS='http://www.w3.org/2000/svg';
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const X0=10,X1=110,Y0=12,Y1=45;
+  const X=m=>X0+m*(X1-X0);
+  const mk=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
+  // lanes
+  const short=['DISCOVERY','FEASIB.','DESIGN','BUILD','ERP CFG','UAT','GO-LIVE'];
+  for(let i=0;i<7;i++){
+    const xa=X0+i*(X1-X0)/7, xb=X0+(i+1)*(X1-X0)/7;
+    if(i%2===0)svg.appendChild(mk('rect',{x:xa,y:Y0-3,width:xb-xa,height:Y1-Y0+6,fill:'rgba(100,150,210,.035)'}));
+    svg.appendChild(mk('line',{x1:xa,x2:xa,y1:Y0-3,y2:Y1+3,stroke:'rgba(100,150,210,.16)','stroke-width':.15}));
+    const t=mk('text',{x:(xa+xb)/2,y:6.6,fill:'#6C81A2','font-size':1.8,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','letter-spacing':.15});
+    t.textContent=short[i];svg.appendChild(t);
+  }
+  svg.appendChild(mk('line',{x1:X1,x2:X1,y1:Y0-3,y2:Y1+3,stroke:'rgba(100,150,210,.16)','stroke-width':.15}));
+  const ax=mk('text',{x:X0,y:51.8,fill:'#6C81A2','font-size':1.7,'font-family':'IBM Plex Mono, monospace'});ax.textContent='0%';svg.appendChild(ax);
+  const ax2=mk('text',{x:X1,y:51.8,fill:'#6C81A2','font-size':1.7,'text-anchor':'end','font-family':'IBM Plex Mono, monospace'});ax2.textContent='100%';svg.appendChild(ax2);
+  // average markers
+  const avgG=mk('g',{});svg.appendChild(avgG);
+  const avgLine=mk('line',{y1:Y0-3,y2:Y1+3,stroke:'#F5A623','stroke-width':.25,'stroke-dasharray':'.8 .6',opacity:.0});
+  const avgTxt=mk('text',{y:51.8,fill:'#F5A623','font-size':1.7,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace',opacity:0});
+  avgG.appendChild(avgLine);avgG.appendChild(avgTxt);
+  // trails + dots
+  const trailG=mk('g',{});svg.appendChild(trailG);
+  const order=PORT.map((d,i)=>i).sort((a,b)=>(PORT[a].c-PORT[b].c));
+  const dots=PORT.map((d,i)=>{
+    const rank=order.indexOf(i);
+    const y=Y0+(rank/(PORT.length-1))*(Y1-Y0) + ((i*37)%7-3)*.18;
+    const trail=mk('line',{y1:y,y2:y,stroke:'#2FD0BF','stroke-width':.35,opacity:0,'stroke-linecap':'round'});
+    trailG.appendChild(trail);
+    const c=mk('circle',{cy:y,r:1.1});
+    svg.appendChild(c);
+    return {d,y,c,trail};
+  });
+  function avg(list){return list.reduce((s,v)=>s+v,0)/list.length}
+  const avgPrev=avg(PORT.filter(d=>d.p!==null).map(d=>d.p));
+  function setState(t){ // t: 0 = previous review, 1 = current
+    const e=1-Math.pow(1-t,3);
+    dots.forEach(({d,y,c,trail})=>{
+      let x,op=1,fill='#2FD0BF',stroke='none';
+      if(d.p===null){x=X(d.c*e);op=Math.max(0,(t-.15)/.6);fill='#F5A623';}
+      else{x=X(d.p+(d.c-d.p)*e);}
+      if(d.s==='hold'&&t>.55){fill='#09111F';stroke='#AEBDD6';}
+      c.setAttribute('cx',x.toFixed(2));c.setAttribute('opacity',Math.min(1,op).toFixed(2));
+      c.setAttribute('fill',fill);c.setAttribute('stroke',stroke);c.setAttribute('stroke-width',stroke==='none'?0:.4);
+      if(d.p!==null&&Math.abs(d.c-d.p)>.03){
+        trail.setAttribute('x1',X(d.p));trail.setAttribute('x2',x.toFixed(2));
+        trail.setAttribute('opacity',(.18+.25*e).toFixed(2));
+        trail.setAttribute('stroke',d.c<d.p?'#F5A623':'#2FD0BF');
+      }else trail.setAttribute('opacity',0);
+    });
+    const same=avgPrev+(avg(PORT.filter(d=>d.p!==null).map(d=>d.c))-avgPrev)*e;
+    avgLine.setAttribute('x1',X(same));avgLine.setAttribute('x2',X(same));avgLine.setAttribute('opacity',.7);
+    avgTxt.setAttribute('x',X(same));avgTxt.setAttribute('opacity',.95);
+    avgTxt.textContent='avg · same 19 · '+Math.round(same*100)+'%';
+  }
+  let raf=null;
+  function play(){
+    cancelAnimationFrame(raf);setState(0);
+    if(reduce){setState(1);return}
+    let start=null;const HOLD=900,DUR=2200;
+    function f(ts){if(!start)start=ts;const el=ts-start;
+      const t=Math.min(1,Math.max(0,(el-HOLD)/DUR));setState(t);
+      if(t<1)raf=requestAnimationFrame(f);}
+    raf=requestAnimationFrame(f);
+  }
+  document.getElementById('replay').addEventListener('click',play);
+  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){play();io.disconnect()}},{threshold:.35});
+  setState(0);io.observe(document.getElementById('heroviz'));
+})();
+
+/* ════════ GATE CALCULATOR ════════ */
+(function(){
+  const wrap=document.getElementById('gates');let vals=[1,1,1,1,.5,.5,0];
+  const btns=GATES.map((g,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='gate';
+    b.innerHTML=`<span class="gn">GATE ${i+1}</span><span class="gt">${g[0]}</span><span class="gv"></span><span class="fill"></span>`;
+    b.title=g[1];
+    b.addEventListener('click',()=>{vals[i]=vals[i]===0?.5:vals[i]===.5?1:0;clearPresets();render()});
+    wrap.appendChild(b);return b;
+  });
+  const score=document.getElementById('score'),msg=document.getElementById('calcmsg');
+  function clearPresets(){document.querySelectorAll('.pbtn').forEach(p=>p.classList.remove('on'))}
+  function render(){
+    vals.forEach((v,i)=>{const b=btns[i];b.dataset.v=String(v);
+      b.querySelector('.gv').textContent=v===1?'1.0 · confirmed':v===.5?'0.5 · partial':'0 · not started';
+      b.querySelector('.fill').style.width=(v*100)+'%';});
+    const m=vals.reduce((a,b)=>a+b,0)/7;const pct=Math.round(m*100);
+    score.innerHTML=pct+'<small>%</small>';
+    const nx=vals.findIndex(v=>v<1);
+    let text;
+    if(nx===-1)text='<b>All seven gates confirmed.</b> Live, with a supported operating model and release evidence — the only state that counts as done.';
+    else if(pct>=65)text=`<b>${pct}% — and still not live.</b> This is the classic "almost done" trap. The percentage is a control signal; what leadership needs to hear is the next gate and who owns it.`;
+    else if(pct>=30)text=`<b>${pct}% with real technical evidence.</b> A lot of work happens inside a gate before the score moves — which is why the review reports delivered evidence alongside the number.`;
+    else text=`<b>${pct}% — early, and that's fine.</b> New demand enters with an owner, a position and a next gate before any development capacity is committed.`;
+    if(nx!==-1)text+=`<span class="nx">Next gate → ${GATES[nx][0]} · evidence needed: ${GATES[nx][1].toLowerCase()}</span>`;
+    msg.innerHTML=text;
+  }
+  document.querySelectorAll('.pbtn').forEach(p=>p.addEventListener('click',()=>{
+    vals=p.dataset.p.split(',').map(Number);clearPresets();p.classList.add('on');render();}));
+  render();
+})();
+
+/* ════════ COMPARABLE BASIS ════════ */
+(function(){
+  const S={
+    same:{n:'<span class="from">58%</span> → <span class="to">63%</span><span class="d">▲ +5 pts</span>',c:'Comparable maturity · baseline → current review',
+      t:'Measured on exactly the initiatives presented at the previous review, with the same seven gates. This is the number that answers "did the portfolio move?" — without new entries diluting it or flattering it.'},
+    full:{n:'<span class="to">55%</span><span class="d" style="color:var(--amber)">+5 new initiatives</span>',c:'Full portfolio maturity · 24 initiatives',
+      t:'Includes the five initiatives that entered this cycle — naturally at the start of the funnel, with few confirmed gates. Lower average, healthier portfolio: this is scope growth, not lost progress.'}
+  };
+  document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.seg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+    const s=S[b.dataset.b];document.getElementById('bnum').innerHTML=s.n;document.getElementById('bcap').textContent=s.c;document.getElementById('btext').textContent=s.t;
+  }));
+})();
+
+/* ════════ DASHBOARD ════════ */
+(function(){
+  const bars=[];
+  function row(parent,name,val,max,label,tipHtml,soft,drop){
+    const r=document.createElement('div');r.className='brow';
+    r.innerHTML=`<span class="bn">${name}</span><span class="bt"><span class="bf${soft?' soft':''}"></span>${drop?`<span class="drop">${drop}</span>`:''}</span><span class="bv">${label}</span>`;
+    parent.appendChild(r);bars.push([r.querySelector('.bf'),val/max]);bindTip(r,tipHtml);
+  }
+  const f=document.getElementById('funnel');
+  FUNNEL.forEach((v,i)=>{
+    const d=i>0?v-FUNNEL[i-1]:0;
+    row(f,(i+1)+' · '+GATES[i][0],v,24,v,`<b>${GATES[i][0]}</b><br/>${v} of 24 initiatives fully confirmed${i>0?`<br/>${d} vs. previous gate`:''}<br/><span style="color:#6C81A2">${GATES[i][1]}</span>`,false,(d<=-5)?d:null);
+  });
+  // drop labels sit inside track to the right of fill: reposition
+  const a=document.getElementById('areas');
+  AREAS.forEach(([n,v,c])=>row(a,n,v,100,v+'%',`<b>${n}</b><br/>Average maturity ${v}%<br/>${c} initiative${c>1?'s':''}`,true));
+  const t=document.getElementById('trace');
+  TRACE.forEach(([n,v])=>row(t,n,v,24,v+'/24',`<b>${n}</b><br/>${v} of 24 initiatives (${Math.round(v/24*100)}%)`,n!=='Fully aligned'));
+  const st=document.getElementById('stack'),sk=document.getElementById('skey');
+  STATUS.forEach(([n,v,c])=>{
+    const s=document.createElement('div');s.style.flex=v;s.style.background=c;st.appendChild(s);
+    bindTip(s,`<b>${n}</b><br/>${v} of 24 initiatives`);
+    sk.insertAdjacentHTML('beforeend',`<span><i style="background:${c}"></i>${n} · ${v}</span>`);
+  });
+  // drop labels: place right after fill
+  document.querySelectorAll('#funnel .brow').forEach((r,i)=>{const d=r.querySelector('.drop');if(d){d.style.left=`calc(${FUNNEL[i]/24*100}% + 6px)`}});
+  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){bars.forEach(([el,p])=>el.style.width=(p*100)+'%');io.disconnect()}},{threshold:.2});
+  io.observe(document.querySelector('.dash'));
+})();
+
+/* ════════ MOVEMENT ════════ */
+(function(){
+  const host=document.getElementById('mvrows');
+  const gl=[25,50,75].map(p=>`<span class="gl" style="left:${p}%"></span>`).join('');
+  MOVES.forEach(([n,s,a,b,flag,d])=>{
+    const lo=Math.min(a,b),hi=Math.max(a,b);
+    const r=document.createElement('div');r.className='mv-row';
+    r.innerHTML=`<div class="mv-name">${n}<small>${s}</small></div>
+      <div class="mv-track">${gl}<span class="mv-line" style="left:${lo}%;width:${hi-lo}%;${d<0?'background:var(--amber)':''}"></span>
+      <span class="mv-dot from" style="left:${a}%"></span><span class="mv-dot to${flag?' pause':''}" style="left:${b}%"></span></div>
+      <div class="mv-d${d<0?' neg':''}">${d>0?'+':''}${d}</div>`;
+    host.appendChild(r);
+    bindTip(r,`<b>${n}</b><br/>Previous ${a}% → current ${b}%<br/>${s}`);
+  });
+  host.insertAdjacentHTML('beforeend','<div class="mv-sep">New this cycle · no baseline</div>');
+  NEWS.forEach(([n,s,b])=>{
+    const r=document.createElement('div');r.className='mv-row';
+    r.innerHTML=`<div class="mv-name">${n}<small>${s}</small></div>
+      <div class="mv-track">${gl}<span class="mv-dot to new" style="left:${b}%"></span></div>
+      <div class="mv-d nw">NEW</div>`;
+    host.appendChild(r);
+    bindTip(r,`<b>${n}</b><br/>Entered at ${b}% · ${s}<br/>Registered with owner and next gate`);
+  });
+})();
+
+/* ════════ SPEAKER NOTES TABS ════════ */
+(function(){
+  const N=[
+    `<p>"The portfolio grew from 19 to 24 initiatives. The important point is not growth alone. On the same 19-initiative basis we used last time, delivery maturity moved from 58 to 63 percent. The full portfolio sits at 55 because five new initiatives entered at the beginning of the funnel. Published solutions went from five to four because one monitor was switched off at the business's request — not because anything failed. Sixteen initiatives recorded new evidence this cycle. The message is simple: scope increased, but uncertainty decreased."</p>`,
+    `<p>The table on the left explains movement by category. The dark card shows comparable maturity for the original 19 initiatives; the light card shows the full portfolio. The green number highlights initiatives with new evidence this cycle. Anyone opening the deck later can read the slide without the presenter.</p>`,
+    `<p><b style="color:var(--text);font-weight:500">Comparable maturity</b> uses the same initiatives and the same seven gates in both periods. <b style="color:var(--text);font-weight:500">Full-portfolio maturity</b> includes new entries, which naturally start with fewer confirmed gates. <b style="color:var(--text);font-weight:500">Gate score</b>: 1 confirmed · 0.5 partial · 0 not started — maturity is their average, never a percentage of code written.</p>`,
+    `<ol><li>Why did full-portfolio maturity drop while comparable maturity rose?</li><li>Which five initiatives are new — and are they approved for development?</li><li>Why did published automations go from five to four?</li></ol><p class="cue">Each one rehearsed with a one-sentence answer and the slide that backs it.</p>`,
+    `<p>Land the comparable number first, then explain the full-portfolio number before anyone asks. Pause after the executive message. Don't read the table — point at the two rows that changed.</p>`
+  ];
+  const p=document.getElementById('npanel');
+  const tabs=document.querySelectorAll('.ntab');
+  function show(i){tabs.forEach(t=>t.classList.toggle('on',t.dataset.n==i));p.innerHTML=N[i]}
+  tabs.forEach(t=>t.addEventListener('click',()=>show(+t.dataset.n)));show(0);
+})();
+
+/* ════════ ACCORDION ════════ */
+document.querySelectorAll('.stage-toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const stage=btn.closest('.stage');const open=stage.classList.contains('open');
+    stage.classList.toggle('open');btn.setAttribute('aria-expanded',String(!open));
+    const tx=btn.querySelector('.expand .tx');if(tx)tx.textContent=open?'Expand':'Close';
+  });
+});
+
+/* ════════ REVEAL ════════ */
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
